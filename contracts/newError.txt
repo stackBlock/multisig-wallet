@@ -1,0 +1,15 @@
+Compiling your contracts...
+===========================
+> Compiling ./contracts/Migrations.sol
+> Compiling ./contracts/wallet.sol
+
+/home/anthony/Desktop/InProcess_EatTheBlocks/multisig Wallet/wallet/contracts/wallet.sol:27:12: TypeError: Return argument type mapping(uint256 => struct Wallet.Transfer storage ref) is not implicitly convertible to expected type (type of first return variable) struct Wallet.Transfer memory[] memory.
+    return transfers;
+           ^-------^
+,/home/anthony/Desktop/InProcess_EatTheBlocks/multisig Wallet/wallet/contracts/wallet.sol:32:7: TypeError: Member "length" not found or not visible after argument-dependent lookup in mapping(uint256 => struct Wallet.Transfer storage ref).
+      transfers.length,
+      ^--------------^
+
+Compilation failed. See above.
+Truffle v5.1.26 (core: 5.1.26)
+Node v12.16.3
