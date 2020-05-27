@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
+import {
+  Container, Row, Col, Navbar, NavbarBrand, Nav, NavItem, NavLink, Card, CardBody, CardTitle, CardSubtitle, CardText, Button
+} from 'reactstrap';
 import { getWeb3, getWallet } from './utils.js';
 import Header from './Header.js';
 import NewTransfer from './NewTransfer.js';
@@ -16,7 +19,7 @@ function App() {
 
   useEffect(() => {
     const init = async () => {
-      const web3 = getWeb3();
+      const web3 = await getWeb3();
       const accounts = await web3.eth.getAccounts();
       const wallet = await getWallet(web3);
       const approvers = await wallet.methods.getApprovers().call();
@@ -74,16 +77,62 @@ function App() {
   }
   console.log(transfers);
   return (
-    <div>
-      Multisig Dap
-      <Header approvers={approvers} quorum={quorum} />
-      <NewTransfer createTransfer={createTransfer} />
-      <TransferList 
-        transfers={ transfers }
-        approveTransfer={approveTransfer} 
-        approveTransfer2={approveTransfer2} 
-      />
-    </div>
+    <Fragment>
+      <Navbar color="faded" light expand="md">
+        <NavbarBrand href="/">
+          Julian's Super Duper Multi-Sig Wallet
+        </NavbarBrand>
+        <Nav className="ml-auto" navbar>
+
+          <NavItem className="d-flex align-items-center">
+            <NavLink className="font-weight-bold" href="/">Home</NavLink>
+          </NavItem>
+          <NavItem className="d-flex align-items-center">
+            <NavLink className="font-weight-bold" href="https://eattheblocks-pro.teachable.com">
+              Tutorial
+            </NavLink>
+          </NavItem>
+        </Nav>
+      </Navbar>
+
+      <Container fluid>
+        <Row>
+          <Col>
+            <Card color="primary">
+              <CardBody>
+              <CardTitle className="h3 mb-2 pt-2 font-weight-bold">Multi-Sig Wallet</CardTitle>
+              <Header approvers={approvers} quorum={quorum} />
+
+              </CardBody>
+            </Card>
+
+            <Card color="primary">
+              <CardBody>
+              <NewTransfer createTransfer={createTransfer} />
+
+              </CardBody>
+            </Card>
+
+            <Card color="primary">
+              <CardBody>
+              <TransferList 
+              transfers={ transfers }
+              approveTransfer={approveTransfer} 
+              approveTransfer2={approveTransfer2} 
+            />
+
+              </CardBody>
+            </Card>
+
+
+
+          
+          </Col>
+        </Row>
+
+      </Container>
+
+    </Fragment>
   );
 }
 

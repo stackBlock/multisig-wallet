@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import {
+    Container, Row, Col, Navbar, NavbarBrand, Nav, NavItem, NavLink, Card, CardBody, CardTitle, CardSubtitle, CardText, Button
+  } from 'reactstrap';
 
 function NewTransfer({ createTransfer }) {
     const [transfer, setTransfer] = useState();
@@ -34,7 +37,7 @@ const updateTransfer = (e, field) => {
                     type="text"
                     onChange={e => updateTransfer(e, 'to')}
                 />
-                <button>Submit</button>
+                <Button color={ true ? 'success' : 'warning' } >Submit</Button>
             </form>
         </div>
     )
