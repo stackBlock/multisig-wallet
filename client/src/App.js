@@ -12,7 +12,7 @@ function App() {
   const [wallet, setWallet] = useState();
   const [approvers, setApprovers] = useState();
   const [quorum, setQuorum] = useState();
-  const [tran, setTransfers] = useState([]);
+  const [transfers, setTransfers] = useState([]);
 
   useEffect(() => {
     const init = async () => {
@@ -21,13 +21,13 @@ function App() {
       const wallet = await getWallet(web3);
       const approvers = await wallet.methods.getApprovers().call();
       const quorum = await wallet.methods.quorum().call();
-      const tran = await wallet.methods.getTransfers().call();
+      const transfers = await wallet.methods.getTransfers().call();
       setWeb3(web3);
       setAccounts(accounts);
       setWallet(wallet);
       setApprovers(approvers);
       setQuorum(quorum);
-      setTransfers(tran);
+      setTransfers(transfers);
     };
     init();
   }, []);
@@ -38,8 +38,8 @@ function App() {
     .createTransfer(transfer.amount, transfer.to)
     .send({from: accounts[0], gas:3000000})
     .then( async () => {
-      const tran = await wallet.methods.getTransfers().call();
-      setTransfers(tran);
+      const transfers = await wallet.methods.getTransfers().call();
+      setTransfers(transfers);
     })
   };
 
@@ -48,8 +48,8 @@ function App() {
     .approveTransfer(transferId)
     .send({from: accounts[0], gas:3000000})
     .then( async () => {
-      const tran = await wallet.methods.getTransfers().call();
-      setTransfers(tran);
+      const transfers = await wallet.methods.getTransfers().call();
+      setTransfers(transfers);
     })
   }
 
@@ -58,8 +58,8 @@ function App() {
     .approveTransfer(transferId)
     .send({from: accounts[1], gas:3000000})
     .then( async () => {
-      const tran = await wallet.methods.getTransfers().call();
-      setTransfers(tran);
+      const transfers = await wallet.methods.getTransfers().call();
+      setTransfers(transfers);
     })
   }
 
@@ -72,14 +72,14 @@ function App() {
   ) {
     return <div>Loading...</div>;
   }
-  console.log(tran);
+  console.log(transfers);
   return (
     <div>
       Multisig Dap
       <Header approvers={approvers} quorum={quorum} />
       <NewTransfer createTransfer={createTransfer} />
       <TransferList 
-        transfers={ tran }
+        transfers={ transfers }
         approveTransfer={approveTransfer} 
         approveTransfer2={approveTransfer2} 
       />
